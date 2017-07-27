@@ -1,0 +1,11 @@
+package: github.com/fident/go-manage
+homepage: https://github.com/fident/go-manage
+license: PRIVATE
+description: Go helper library for fident management API
+import:
+- package: github.com/fident/go-proto
+  version: =0.1.8
+- package: google.golang.org/grpc
+  version: =1.0.5
+- package: github.com/dgrijalva/jwt-go
+  version: =3.0.0
