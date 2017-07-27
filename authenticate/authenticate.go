@@ -12,17 +12,13 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+const challengeParam = "challenge_token"
+
 // GetToken retrieves a new authentication token for Fident requests
-func GetToken(keypath, fidentEndpoint string) (string, error) {
+func GetToken(key key.Key, fidentEndpoint string) (string, error) {
+
 	// TODO: supply endpoint and cert details
 	//conn, err := grpc.Dial(address, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
-
-	// Load key
-	key, err := key.FromFile(keypath)
-	if err != nil {
-		return "", err
-	}
-
 	tlc := &tls.Config{
 		InsecureSkipVerify: true, // FOR TESTING ONLY, TODO: Remove this verify/distribute fident.io cert
 	}
@@ -49,7 +45,7 @@ func GetToken(keypath, fidentEndpoint string) (string, error) {
 	//(endpoint is already verified by GRPC connection so there should be no point)
 
 	challengeResponseToken := jwt.NewWithClaims(jwt.SigningMethodRS256, jwt.MapClaims{
-		"challenge_token": r.Challenge,
+		challengeParam: r.Challenge,
 	})
 
 	response, err := challengeResponseToken.SignedString(key.PrivateKey)

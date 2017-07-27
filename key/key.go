@@ -13,7 +13,7 @@ import (
 	"io/ioutil"
 )
 
-// Key is the structure for app authentication JSON files
+// Key is the structure for authentication JSON files
 type Key struct {
 	UserType      string          `json:"type"`
 	IdentityID    string          `json:"identity_id"`
@@ -24,6 +24,7 @@ type Key struct {
 	KeyHandle     string          `json:"key_handle"`
 }
 
+// FromFile loads key from given path
 func FromFile(path string) (Key, error) {
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
