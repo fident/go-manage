@@ -4,9 +4,10 @@ import (
 	"context"
 	"crypto/tls"
 
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/fident/go-manage/key"
 	"github.com/fident/go-proto/fident"
-	"github.com/lucidcube/fident-client/key"
+
+	jwt "github.com/dgrijalva/jwt-go"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -37,8 +38,8 @@ func GetToken(keypath, fidentEndpoint string) (string, error) {
 
 	// Contact fident and print out challenge
 	r, err := c.GetAuthenticationChallenge(context.Background(), &fident.AuthChallengePayload{
-		Username:  key.IdentityID,
-		ProjectId: key.ProjectID,
+		IdentityId: key.IdentityID,
+		ProjectId:  key.ProjectID,
 	})
 	if err != nil {
 		return "", err
@@ -57,7 +58,7 @@ func GetToken(keypath, fidentEndpoint string) (string, error) {
 	}
 
 	tr, err := c.PerformAuthentication(context.Background(), &fident.PerformAuthPayload{
-		Username:          key.IdentityID,
+		IdentityId:        key.IdentityID,
 		KeyHandle:         key.KeyHandle,
 		ProjectId:         key.ProjectID,
 		ChallengeResponse: response,

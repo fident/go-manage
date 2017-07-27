@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/lucidcube/fident-client/authenticate"
+	"github.com/fident/go-manage/authenticate"
 )
 
 const (
-	fidentAddress = "localhost:50052"
-	keyfilePath   = "./testkey.json"
+	fidentInstanceAddress = "localhost:50052"
+	keyfilePath           = "./testkey.json"
 )
 
 func main() {
-	token, err := authenticate.GetToken(keyfilePath, fidentAddress)
+	token, err := authenticate.GetToken(keyfilePath, fidentInstanceAddress)
 	if err != nil {
 		log.Fatalf("failed to get token: %v", err)
 	}
