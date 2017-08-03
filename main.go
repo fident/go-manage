@@ -2,11 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 
-	"github.com/fident/go-manage/authenticate"
-	"github.com/fident/go-manage/key"
-	"github.com/fident/go-manage/token"
+	"github.com/fident/go-manage/client"
 )
 
 const (
@@ -15,26 +12,15 @@ const (
 )
 
 func main() {
-	// Read key file
-	key, err := key.FromFile(keyfilePath)
+	testClient, err := client.New(keyfilePath, fidentInstanceAddress)
 	if err != nil {
-		log.Fatalf("failed to read keyfile: %v", err)
+		panic(err)
 	}
 
-	// Use key to get token
-	tok, err := authenticate.GetToken(key, fidentInstanceAddress)
+	lastlogin, err := testClient.GetLastLoginTimestampForIdentityID("EFIDFIID-ZGVT5I6L4-MISCR-V5UX35S")
 	if err != nil {
-		log.Fatalf("failed to get token: %v", err)
+		panic(err)
 	}
 
-	// Parse token for local management
-	res, err := token.Parse(tok)
-	if err != nil {
-		log.Fatalf("failed to parse token: %v", err)
-	}
-
-	fmt.Printf("Token: %v\n", res)
-	// Make calls using token (Auto-handling token expiry)
-
-	fmt.Printf("Needs refresh: %v\n", res.WithinExpiryRange())
+	fmt.Printf("Last login was %s\n", lastlogin.String())
 }
