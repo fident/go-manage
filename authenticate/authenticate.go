@@ -33,7 +33,7 @@ func GetToken(key key.Key, fidentEndpoint string) (string, error) {
 	c := fident.NewAuthClient(conn)
 
 	// Contact fident and print out challenge
-	r, err := c.GetAuthenticationChallenge(context.Background(), &fident.AuthChallengePayload{
+	r, err := c.GetAuthenticationChallenge(context.Background(), &fident.AuthChallengeRequest{
 		IdentityId: key.IdentityID,
 		ProjectId:  key.ProjectID,
 	})
@@ -53,7 +53,7 @@ func GetToken(key key.Key, fidentEndpoint string) (string, error) {
 		return "", err
 	}
 
-	tr, err := c.PerformAuthentication(context.Background(), &fident.PerformAuthPayload{
+	tr, err := c.PerformAuthentication(context.Background(), &fident.PerformAuthRequest{
 		IdentityId:        key.IdentityID,
 		KeyHandle:         key.KeyHandle,
 		ProjectId:         key.ProjectID,
