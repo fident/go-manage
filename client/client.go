@@ -3,11 +3,11 @@ package client
 import (
 	"log"
 
-	"google.golang.org/grpc/metadata"
-
 	"github.com/fident/go-manage/authenticate"
 	"github.com/fident/go-manage/key"
 	"github.com/fident/go-manage/token"
+
+	"google.golang.org/grpc/metadata"
 )
 
 // Instance is go-managem client instance
@@ -72,6 +72,6 @@ func (i *Instance) preflightAuth() (metadata.MD, error) {
 		}
 	}
 
-	meta := metadata.New(map[string]string{projectIDKey: i.key.ProjectID, tokenKey: i.activeToken.GetValue()})
+	meta := metadata.New(map[string]string{projectIDMetaKey: i.key.ProjectID, tokenMetaKey: i.activeToken.GetValue()})
 	return meta, nil
 }
