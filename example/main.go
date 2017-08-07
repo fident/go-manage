@@ -7,12 +7,11 @@ import (
 )
 
 const (
-	fidentInstanceAddress = "localhost:50052"
-	keyfilePath           = "./testkey.json"
+	keyfilePath = "./testkey.json"
 )
 
 func main() {
-	testClient, err := client.New(keyfilePath, fidentInstanceAddress)
+	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressLocal)
 	if err != nil {
 		panic(err)
 	}
@@ -22,5 +21,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("Got %v\n", lastlogin)
+	fmt.Printf("Result: %v\n", lastlogin)
 }

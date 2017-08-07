@@ -43,6 +43,7 @@ func (i *Instance) Init(keyfilePath, fidentInstanceAddress string) error {
 	}
 	i.key = key
 	i.fidentEndpoint = fidentInstanceAddress
+	initTLS()
 	return nil
 }
 
