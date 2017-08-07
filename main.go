@@ -17,10 +17,10 @@ func main() {
 		panic(err)
 	}
 
-	lastlogin, err := testClient.GetLastLoginTimestampForIdentityID("EFIDFIID-ZGVT5I6L4-MISCR-V5UX35S")
+	lastlogin, err := testClient.GetAccountDetailsForIdentityID("EFIDFIID-ZGVT5I6L4-MISCR-V5UX35S")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Last login was %s\n", lastlogin.String())
+	fmt.Printf("Got %v\n", lastlogin)
 }

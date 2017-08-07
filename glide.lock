@@ -1,10 +1,10 @@
-hash: 727f348839253e2c002aabd847d6541f77a28757391569259978536951735b07
-updated: 2017-08-03T11:02:31.085849694+01:00
+hash: ca883dc16dd302af2e85e3917b386a16e2971abedbecf9f484d901f929088f4c
+updated: 2017-08-07T11:23:44.731500498+01:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
 - name: github.com/fident/go-proto
-  version: 8bc5174e7fc391284c9d47c04e90bd39b0628770
+  version: c93bb0e8d829edd64c5178bc583e337883b56e16
   subpackages:
   - fident
 - name: github.com/golang/protobuf

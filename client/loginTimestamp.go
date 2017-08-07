@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"crypto/tls"
 	"errors"
 	"time"
 
@@ -35,13 +34,7 @@ func (i *Instance) GetLastLoginTimestampsForIdentityIDs(identityIDs []string) (m
 	}
 	ctx := metadata.NewContext(context.Background(), meta)
 
-	// TODO: supply endpoint and cert details
-	//conn, err := grpc.Dial(address, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
-	tlc := &tls.Config{
-		InsecureSkipVerify: true, // FOR TESTING ONLY, TODO: Remove this verify/distribute fident.io cert
-	}
-
-	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tlc)))
+	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(fidentTSLConfig)))
 	if err != nil {
 		return map[string]time.Time{}, err
 	}
