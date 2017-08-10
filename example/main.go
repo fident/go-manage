@@ -33,4 +33,11 @@ func main() {
 
 	fmt.Printf("Timestamp Result: %v\n", lastlogin)
 
+	// Query all identity ids for project
+	ids, err := testClient.GetAllIdentityIDsForProject()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("All IDs Result: %v\n", ids)
 }

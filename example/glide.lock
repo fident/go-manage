@@ -1,0 +1,10 @@
+hash: 20c3c50757524fb9c6fbba02624337bf677c99bf658b5e13d7bafde9b7639e39
+updated: 2017-08-10T10:57:04.124791588+01:00
+imports:
+- name: github.com/dgrijalva/jwt-go
+  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
+- name: github.com/fident/go-proto
+  version: e0293cafd09fa82d3ecf412fa299208609c21c48
+- name: google.golang.org/grpc
+  version: b8669c35455183da6d5c474ea6e72fbf55183274
+testImports: []
