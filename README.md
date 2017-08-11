@@ -8,7 +8,7 @@ import client "github.com/fident/go-manage"
 
 Init a new client using your fident instance address and your service key file
 ```go
-testClient, err := client.New("./testkey.json", client.FidentInstanceAddressLocal)
+testClient, err := client.New("./mykey.json", client.FidentInstancePublic)
 if err != nil {
 	panic(err)
 }
