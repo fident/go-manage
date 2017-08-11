@@ -1,4 +1,4 @@
-package manage
+package tls
 
 import (
 	"crypto/tls"
@@ -7,7 +7,8 @@ import (
 )
 
 // Fident GRPC certificate
-var fidentGRPCCertificate = `-----BEGIN CERTIFICATE-----
+var (
+	fidentGRPCCertificate = `-----BEGIN CERTIFICATE-----
 MIIC+zCCAeOgAwIBAgIJAKqY7FjWykkAMA0GCSqGSIb3DQEBBQUAMBQxEjAQBgNV
 BAMMCWxvY2FsaG9zdDAeFw0xNjA1MjMxMDU1MzRaFw0yNjA1MjExMDU1MzRaMBQx
 EjAQBgNVBAMMCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
@@ -26,19 +27,24 @@ gqyKWdvnD3FeTn2z4pC2iQcCPQnxFNTzaSYeQvE9c3/9JMXMW5LEChb6zEBMCrsC
 XQP3Oyk7j0T4X7M8+vWLRhqiJ1j7TV40qNVWSgLxHRp6H0c2sCFrlcywqBl2EAk=
 -----END CERTIFICATE-----`
 
-var fidentTSLConfig *tls.Config
+	// FidentTSLConfig is the fident TLS configuration
+	FidentTSLConfig *tls.Config
 
-// internal TLS init
-func initTLS() error {
+	FidentGRPCCertServerName = "localhost" // TBC
+)
+
+//InitTLS TLS init
+func InitTLS() error {
 	cp := x509.NewCertPool()
 	if !cp.AppendCertsFromPEM([]byte(fidentGRPCCertificate)) {
 		return errors.New("credentials: failed to append certificates")
 	}
-	fidentTSLConfig = &tls.Config{RootCAs: cp}
+	FidentTSLConfig = &tls.Config{RootCAs: cp, ServerName: FidentGRPCCertServerName}
 	return nil
 }
 
-func overrideFidentCerficate(certPEM string) {
+// OverrideFidentCerficate use a certificate other than specified fident one (for other fident instances)
+func OverrideFidentCerficate(certPEM string) {
 	if certPEM != "" {
 		fidentGRPCCertificate = certPEM
 	}

@@ -3,7 +3,9 @@ package manage
 import (
 	"context"
 
+	"github.com/fident/go-manage/tls"
 	"github.com/fident/go-proto/fident"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
@@ -17,7 +19,7 @@ func (i *Instance) GetAllIdentityIDsForProject() ([]string, error) {
 	}
 	ctx := metadata.NewContext(context.Background(), meta)
 
-	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(fidentTSLConfig)))
+	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
 		return []string{}, err
 	}

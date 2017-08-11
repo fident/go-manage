@@ -5,6 +5,7 @@ import (
 
 	"github.com/fident/go-manage/authenticate"
 	"github.com/fident/go-manage/key"
+	"github.com/fident/go-manage/tls"
 	"github.com/fident/go-manage/token"
 
 	"google.golang.org/grpc/metadata"
@@ -35,6 +36,10 @@ func (i *Instance) IsAuthenticated() bool {
 
 // Init client with a new keyfile and endpoint
 func (i *Instance) Init(keyfilePath, fidentInstanceAddress string) error {
+	// Get fident instance
+	if fidentInstanceAddress == FidentInstanceAddressSharedLocal {
+		fidentInstanceAddress = getAddressFromLocal()
+	}
 	// Read key file
 	key, err := key.FromFile(keyfilePath)
 	if err != nil {
@@ -43,7 +48,7 @@ func (i *Instance) Init(keyfilePath, fidentInstanceAddress string) error {
 	}
 	i.key = key
 	i.fidentEndpoint = fidentInstanceAddress
-	initTLS()
+	tls.InitTLS()
 	return nil
 }
 

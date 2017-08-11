@@ -7,12 +7,13 @@ import (
 )
 
 const (
-	keyfilePath = "./testkey.json"
+	keyfilePath = "./testkeyb.json"
 )
 
 func main() {
 	// Create new fident client with path to keyfile.json and fident instance address
-	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressLocal)
+	// (Note you can use 'client.FidentInstanceAddressSharedLocal' variable to connect using deckard env vars)
+	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressSharedLocal)
 	if err != nil {
 		panic(err)
 	}

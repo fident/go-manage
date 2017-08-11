@@ -2,9 +2,9 @@ package authenticate
 
 import (
 	"context"
-	"crypto/tls"
 
 	"github.com/fident/go-manage/key"
+	ftls "github.com/fident/go-manage/tls"
 	"github.com/fident/go-proto/fident"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -16,14 +16,7 @@ const challengeParam = "challenge_token"
 
 // GetToken retrieves a new authentication token for Fident requests
 func GetToken(key key.Key, fidentEndpoint string) (string, error) {
-
-	// TODO: supply endpoint and cert details
-	//conn, err := grpc.Dial(address, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
-	tlc := &tls.Config{
-		InsecureSkipVerify: true, // FOR TESTING ONLY, TODO: Remove this verify/distribute fident.io cert
-	}
-
-	conn, err := grpc.Dial(fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tlc)))
+	conn, err := grpc.Dial(fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(ftls.FidentTSLConfig)))
 	if err != nil {
 		return "", err
 	}

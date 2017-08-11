@@ -5,6 +5,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/fident/go-manage/tls"
 	"github.com/fident/go-proto/fident"
 
 	"google.golang.org/grpc"
@@ -57,7 +58,7 @@ func (i *Instance) GetAccountDetailsForIdentityIDs(identityIDs []string) ([]Acco
 	}
 	ctx := metadata.NewContext(context.Background(), meta)
 
-	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(fidentTSLConfig)))
+	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
 		return []AccountDetail{}, err
 	}
