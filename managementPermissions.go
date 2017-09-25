@@ -18,7 +18,7 @@ func (i *Instance) GetManagementPermissions(identityID string) ([]permissions.En
 	if err != nil {
 		return []permissions.Entry{}, err
 	}
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewOutgoingContext(context.Background(), meta)
 
 	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
@@ -52,7 +52,7 @@ func (i *Instance) AddManagementPermission(identityID string, permission permiss
 		return err
 	}
 
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewOutgoingContext(context.Background(), meta)
 	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
 		return err
@@ -78,7 +78,7 @@ func (i *Instance) RemoveManagementPermission(identityID string, permission perm
 		return err
 	}
 
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewOutgoingContext(context.Background(), meta)
 	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
 		return err

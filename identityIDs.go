@@ -17,7 +17,7 @@ func (i *Instance) GetAllIdentityIDsForProject() ([]string, error) {
 	if err != nil {
 		return []string{}, err
 	}
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewOutgoingContext(context.Background(), meta)
 
 	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {

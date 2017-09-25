@@ -7,13 +7,13 @@ import (
 )
 
 const (
-	keyfilePath = "./testkeyb.json"
+	keyfilePath = "./testkey.json"
 )
 
 func main() {
 	// Create new fident client with path to keyfile.json and fident instance address
 	// (Note you can use 'client.FidentInstanceAddressSharedLocal' variable to connect using deckard env vars)
-	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressSharedLocal)
+	testClient, err := client.New("./cubex_cloud_testkey.json", client.FidentInstanceAddressSharedLocal)
 	if err != nil {
 		panic(err)
 	}
@@ -41,4 +41,9 @@ func main() {
 	}
 
 	fmt.Printf("All IDs Result: %v\n", ids)
+
+	/*err = testClient.AddManagementPermission("EFIDFIID-ZGTMFQ1EO-MISCR-IAPZNMF", permissions.PermissionAll)
+	if err != nil {
+		panic(err)
+	}*/
 }

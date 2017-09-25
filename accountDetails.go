@@ -56,7 +56,7 @@ func (i *Instance) GetAccountDetailsForIdentityIDs(identityIDs []string) ([]Acco
 	if err != nil {
 		return []AccountDetail{}, err
 	}
-	ctx := metadata.NewContext(context.Background(), meta)
+	ctx := metadata.NewOutgoingContext(context.Background(), meta)
 
 	conn, err := grpc.Dial(i.fidentEndpoint, grpc.WithTransportCredentials(credentials.NewTLS(tls.FidentTSLConfig)))
 	if err != nil {
