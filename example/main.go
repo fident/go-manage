@@ -52,15 +52,17 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Printf("Added management permission\n")
 	*/
 
 	// Creating user account example
 	/*
-		id, _, err := testClient.CreateUserAccount("tetcom", false)
+		id, cookie, err := testClient.CreateUserAccount("test@fident.io", true)
 		if err != nil {
 			panic(err)
 		}
 
-		fmt.Printf("Created account with ID: %v\n", id)
+		fmt.Printf("Created account with ID: %v set cookie %v\n", id, cookie)
 	*/
 }
