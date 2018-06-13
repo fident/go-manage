@@ -3,9 +3,9 @@ package manage
 import (
 	"context"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/permissions"
 	"github.com/fident/go-manage/tls"
-	"github.com/fident/go-proto/fident"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -26,8 +26,8 @@ func (i *Instance) GetManagementPermissions(identityID string) ([]permissions.En
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	res, err := c.GetManagementPermissionsForIdentityIDs(ctx, &fident.GetManagementPermissionsRequest{
+	c := fidentapi.NewAuthClient(conn)
+	res, err := c.GetManagementPermissionsForIdentityIDs(ctx, &fidentapi.GetManagementPermissionsRequest{
 		IdentityId: []string{identityID},
 	})
 
@@ -59,8 +59,8 @@ func (i *Instance) AddManagementPermission(identityID string, permission permiss
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	_, err = c.AddManagementPermissionToIdentityIDs(ctx, &fident.AddManagementPermissionRequest{
+	c := fidentapi.NewAuthClient(conn)
+	_, err = c.AddManagementPermissionToIdentityIDs(ctx, &fidentapi.AddManagementPermissionRequest{
 		IdentityId: []string{identityID},
 		Permission: string(permission),
 	})
@@ -85,8 +85,8 @@ func (i *Instance) RemoveManagementPermission(identityID string, permission perm
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	_, err = c.RemoveManagementPermissionFromIdentityIDs(ctx, &fident.RemoveManagementPermissionRequest{
+	c := fidentapi.NewAuthClient(conn)
+	_, err = c.RemoveManagementPermissionFromIdentityIDs(ctx, &fidentapi.RemoveManagementPermissionRequest{
 		IdentityId: []string{identityID},
 		Permission: string(permission),
 	})

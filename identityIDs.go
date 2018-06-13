@@ -3,8 +3,8 @@ package manage
 import (
 	"context"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/tls"
-	"github.com/fident/go-proto/fident"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -25,8 +25,8 @@ func (i *Instance) GetAllIdentityIDsForProject() ([]string, error) {
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	res, err := c.GetAllIdentityIDs(ctx, &fident.IdentityIDsRequest{})
+	c := fidentapi.NewAuthClient(conn)
+	res, err := c.GetAllIdentityIDs(ctx, &fidentapi.IdentityIDsRequest{})
 	if err != nil {
 		return []string{}, err
 	}

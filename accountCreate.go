@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/tls"
 
-	"github.com/fident/go-proto/fident"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
@@ -27,8 +27,8 @@ func (i *Instance) CreateUserAccount(email string, tempSessionCookie bool) (stri
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	res, err := c.CreateUserAccount(ctx, &fident.CreateUserAccountRequest{
+	c := fidentapi.NewAuthClient(conn)
+	res, err := c.CreateUserAccount(ctx, &fidentapi.CreateUserAccountRequest{
 		EmailAddress:        email,
 		IssueTemporaryToken: tempSessionCookie,
 	})

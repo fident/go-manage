@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-// Instance is go-managem client instance
+// Instance is go-manage client instance
 type Instance struct {
 	authenticated  bool
 	key            key.Key

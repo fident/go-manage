@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/tls"
-	"github.com/fident/go-proto/fident"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -41,8 +41,8 @@ func (i *Instance) GetLastLoginTimestampsForIdentityIDs(identityIDs []string) (m
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	res, err := c.GetLastLoginTimestamps(ctx, &fident.LoginTimestampRequest{
+	c := fidentapi.NewAuthClient(conn)
+	res, err := c.GetLastLoginTimestamps(ctx, &fidentapi.LoginTimestampRequest{
 		IdentityId: identityIDs,
 	})
 	if err != nil {

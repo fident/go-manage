@@ -7,13 +7,13 @@ import (
 )
 
 const (
-	keyfilePath = "./cubex_cloud_testkey.json"
+	keyfilePath = "./local_testkey.json"
 )
 
 func main() {
 	// Create new fident client with path to keyfile.json and fident instance address
 	// (Note you can use 'client.FidentInstanceAddressSharedLocal' variable to connect using deckard env vars)
-	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressSharedLocal)
+	testClient, err := client.New(keyfilePath, client.FidentInstanceAddressLocalHost)
 	if err != nil {
 		panic(err)
 	}

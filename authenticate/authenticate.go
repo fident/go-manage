@@ -3,9 +3,9 @@ package authenticate
 import (
 	"context"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/key"
 	ftls "github.com/fident/go-manage/tls"
-	"github.com/fident/go-proto/fident"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"google.golang.org/grpc"
@@ -23,10 +23,10 @@ func GetToken(key key.Key, fidentEndpoint string) (string, error) {
 
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
+	c := fidentapi.NewAuthClient(conn)
 
 	// Contact fident and print out challenge
-	r, err := c.GetAuthenticationChallenge(context.Background(), &fident.AuthChallengeRequest{
+	r, err := c.GetAuthenticationChallenge(context.Background(), &fidentapi.AuthChallengeRequest{
 		IdentityId: key.IdentityID,
 		ProjectId:  key.ProjectID,
 	})
@@ -46,7 +46,7 @@ func GetToken(key key.Key, fidentEndpoint string) (string, error) {
 		return "", err
 	}
 
-	tr, err := c.PerformAuthentication(context.Background(), &fident.PerformAuthRequest{
+	tr, err := c.PerformAuthentication(context.Background(), &fidentapi.PerformAuthRequest{
 		IdentityId:        key.IdentityID,
 		KeyHandle:         key.KeyHandle,
 		ProjectId:         key.ProjectID,

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
+	"github.com/fident/go-manage/fidentapi"
 	"github.com/fident/go-manage/tls"
-	"github.com/fident/go-proto/fident"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -64,8 +64,8 @@ func (i *Instance) GetAccountDetailsForIdentityIDs(identityIDs []string) ([]Acco
 	}
 	defer conn.Close()
 
-	c := fident.NewAuthClient(conn)
-	res, err := c.GetAccountDetails(ctx, &fident.AccountDetailRequest{
+	c := fidentapi.NewAuthClient(conn)
+	res, err := c.GetAccountDetails(ctx, &fidentapi.AccountDetailRequest{
 		IdentityId: identityIDs,
 	})
 	if err != nil {
